@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>High Atlas Events | Elevating Every Experience</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        /* Variables for easy color management */
+        :root {
+            --navy: #0a1128;
+            --gold: #c5a059;
+            --white: #f4f4f4;
+            --light-gold: #e0c28f;
+        }
+
+        /* Base Styles */
+        body, html {
+            margin: 0;
+            padding: 0;
+            background-color: var(--navy);
+            color: var(--white);
+            font-family: 'Montserrat', sans-serif;
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Playfair Display', serif;
+            color: var(--gold);
+            margin-bottom: 20px;
+        }
+
+        p {
+            line-height: 1.8;
+            font-weight: 300;
+        }
+
+        a {
+            color: var(--gold);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        a:hover {
+            color: var(--light-gold);
+        }
+
+        /* Navigation Bar */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 20px 0;
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            background: rgba(10, 17, 40, 0.95); /* Slightly more opaque */
+            z-index: 1000;
+            border-bottom: 1px solid rgba(197, 160, 89, 0.2);
+        }
+
+        nav a {
+            color: var(--white);
+            text-decoration: none;
+            font-size: 0.85rem;
+            letter-spacing: 2px;
+            transition: color 0.3s ease, transform 0.3s ease;
+            text-transform: uppercase;
+        }
+
+        nav a:hover {
+            color: var(--gold);
+            transform: translateY(-2px);
+        }
+
+        /* Hero Section (Landing Page) */
+        .hero {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            background: linear-gradient(rgba(10, 17, 40, 0.7), rgba(10, 17, 40, 0.7)), /* Darker overlay for text clarity */
+                        url('events.jpg'); /* Placeholder Image */
+            background-size: cover;
+            background-position: center;
+            border-bottom: 3px solid var(--gold); /* Thicker line */
+            position: relative;
+            overflow: hidden; /* For animations */
+        }
+
+        .hero-content {
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeInUp 1.5s forwards ease-out;
+            animation-delay: 0.5s; /* Delay for a smoother entrance */
+        }
+
+        .hero h1 {
+            font-size: 4.5rem;
+            color: var(--gold);
+            margin: 0;
+            letter-spacing: 7px;
+            text-transform: uppercase;
+            text-shadow: 0 0 10px rgba(197, 160, 89, 0.5); /* Soft glow */
+        }
+
+        .hero .slogan {
+            font-size: 1.4rem;
+            letter-spacing: 10px;
+            margin-top: 15px;
+            font-weight: 300;
+            color: var(--white);
+            text-transform: uppercase;
+        }
+
+        .cta-button {
+            margin-top: 50px;
+            padding: 18px 45px;
+            background: transparent;
+            color: var(--gold);
+            border: 2px solid var(--gold); /* Thicker border */
+            cursor: pointer;
+            font-family: 'Montserrat', sans-serif;
+            letter-spacing: 4px;
+            transition: all 0.4s ease;
+            text-decoration: none;
+            display: inline-block;
+            text-transform: uppercase;
+            font-weight: 500;
+        }
+
+        .cta-button:hover {
+            background: var(--gold);
+            color: var(--navy);
+            transform: scale(1.05); /* Slight zoom effect */
+        }
+
+        /* General Content Sections */
+        .content-section {
+            padding: 100px 10%;
+            text-align: center;
+            position: relative; /* For scroll animations */
+            opacity: 0; /* Hidden by default for JS animation */
+            transform: translateY(50px); /* Move down for animation */
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+        }
+
+        .content-section.fade-in {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .gold-line {
+            width: 70px; /* Wider line */
+            height: 3px; /* Thicker line */
+            background: var(--gold);
+            margin: 30px auto;
+        }
+
+        h2 {
+            font-size: 3rem;
+            margin-bottom: 10px;
+        }
+
+        /* About Section (The Philosophy) */
+        #about p {
+            max-width: 800px;
+            margin: 0 auto;
+            font-size: 1.1rem;
+            color: var(--white);
+        }
+
+        /* Services Section */
+        #services {
+            background-color: #0d1633; /* Slightly different shade for contrast */
+            border-top: 1px solid rgba(197, 160, 89, 0.1);
+            border-bottom: 1px solid rgba(197, 160, 89, 0.1);
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 50px;
+            margin-top: 60px;
+            max-width: 1200px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .service-item {
+            background: rgba(255, 255, 255, 0.03); /* Subtle background for items */
+            padding: 40px;
+            border-radius: 8px;
+            transition: transform 0.3s ease, background 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        .service-item:hover {
+            transform: translateY(-10px);
+            background: rgba(197, 160, 89, 0.1); /* Gold tint on hover */
+        }
+
+        .service-item i {
+            font-size: 3rem;
+            color: var(--gold);
+            margin-bottom: 20px;
+        }
+
+        .service-item h3 {
+            font-size: 1.7rem;
+            margin-bottom: 15px;
+            color: var(--light-gold);
+        }
+
+        .service-item p {
+            font-size: 0.95rem;
+            color: var(--white);
+            max-width: 250px;
+        }
+
+        /* Portfolio Section */
+        #portfolio .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-top: 60px;
+            max-width: 1200px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .gallery-item {
+            overflow: hidden;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            position: relative;
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 250px; /* Fixed height for uniformity */
+            object-fit: cover;
+            display: block;
+            transition: transform 0.5s ease;
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.1); /* Zoom effect on hover */
+        }
+
+        .gallery-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(10, 17, 40, 0.7);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .gallery-item:hover .gallery-overlay {
+            opacity: 1;
+        }
+
+        .gallery-overlay h4 {
+            color: var(--gold);
+            font-size: 1.5rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        /* Contact Section */
+        #contact .contact-form {
+            max-width: 600px;
+            margin: 60px auto 0 auto;
+            text-align: left;
+            background: rgba(255, 255, 255, 0.03);
+            padding: 50px;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        .contact-form label {
+            display: block;
+            margin-bottom: 10px;
+            color: var(--light-gold);
+            font-weight: 500;
+        }
+
+        .contact-form input[type="text"],
+        .contact-form input[type="email"],
+        .contact-form textarea {
+            width: calc(100% - 20px);
+            padding: 15px 10px;
+            margin-bottom: 25px;
+            border: 1px solid rgba(197, 160, 89, 0.4);
+            background: rgba(255, 255, 255, 0.05);
+            color: var(--white);
+            border-radius: 5px;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+        }
+
+        .contact-form input[type="text"]:focus,
+        .contact-form input[type="email"]:focus,
+        .contact-form textarea:focus {
+            border-color: var(--gold);
+            outline: none;
+        }
+
+        .contact-form textarea {
+            min-height: 150px;
+            resize: vertical;
+        }
+
+        .contact-form button {
+            width: 100%;
+            padding: 18px;
+            background: var(--gold);
+            color: var(--navy);
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1.1rem;
+            font-weight: 500;
+            letter-spacing: 2px;
+            transition: background 0.3s ease, transform 0.3s ease;
+            text-transform: uppercase;
+        }
+
+        .contact-form button:hover {
+            background: var(--light-gold);
+            transform: translateY(-3px);
+        }
+
+        /* Footer */
+        footer {
+            padding: 60px 10%;
+            text-align: center;
+            background: #050a18;
+            font-size: 0.8rem;
+            color: #777;
+            border-top: 1px solid rgba(197, 160, 89, 0.1);
+        }
+
+        footer .social-icons {
+            margin-top: 20px;
+            margin-bottom: 30px;
+        }
+
+        footer .social-icons a {
+            color: #777;
+            font-size: 1.5rem;
+            margin: 0 15px;
+            transition: color 0.3s ease;
+        }
+
+        footer .social-icons a:hover {
+            color: var(--gold);
+        }
+
+        footer p {
+            margin: 5px 0;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 900px) {
+            .hero h1 { font-size: 3.5rem; letter-spacing: 5px; }
+            .hero .slogan { font-size: 1rem; letter-spacing: 6px; }
+            h2 { font-size: 2.2rem; }
+            .services-grid, .gallery-grid { grid-template-columns: 1fr; }
+            nav { gap: 20px; padding: 15px 0; }
+        }
+
+        @media (max-width: 600px) {
+            .hero h1 { font-size: 2.5rem; letter-spacing: 3px; }
+            .hero .slogan { font-size: 0.8rem; letter-spacing: 4px; }
+            nav a { font-size: 0.75rem; }
+            .content-section { padding: 60px 5%; }
+            .service-item { padding: 30px; }
+            .contact-form { padding: 30px; }
+        }
+
+        /* Keyframe Animations */
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <a href="#about">The Philosophy</a>
+        <a href="#services">Services</a>
+        <a href="#portfolio">Portfolio</a>
+        <a href="#contact">Inquiries</a>
+    </nav>
+
+    <section class="hero">
+        <div class="hero-content">
+            <img src="High Atlas Events.png" alt="Logo" style="width: 800px; height: auto; margin-bottom: 0px;">
+            <h1 class="logo-text"></h1>
+            <div class="slogan"></div>
+        </div>
+        
+    </section>
+
+    <section id="about" class="content-section">
+        <h2>The Pinnacle of Event Curation</h2>
+        <div class="gold-line"></div>
+        <p>
+            Inspired by the timeless grandeur of the Atlas Mountains, High Atlas Events is dedicated to crafting extraordinary experiences that transcend expectation. We transform your most ambitious visions into meticulously executed realities, where every detail is perfected and every moment is elevated. Our commitment to unparalleled service and sophisticated design ensures that your event isn't just an occasion, but a lasting legacy of distinction.
+        </p>
+    </section>
+
+    <section id="services" class="content-section">
+        <h2>Our Bespoke Services</h2>
+        <div class="gold-line"></div>
+        <div class="services-grid">
+            <div class="service-item">
+                <i class="fas fa-gem"></i>
+                <h3>Gala & Award Nights</h3>
+                <p>Curating lavish galas and prestigious award ceremonies with exquisite precision and elegant design.</p>
+            </div>
+            <div class="service-item">
+                <i class="fas fa-briefcase"></i>
+                <h3>Corporate Summits</h3>
+                <p>Designing high-impact corporate events, conferences, and executive retreats that inspire and connect.</p>
+            </div>
+            <div class="service-item">
+                <i class="fas fa-champagne-glasses"></i>
+                <h3>Private Celebrations</h3>
+                <p>From intimate gatherings to grand celebrations, we personalize every detail for unforgettable memories.</p>
+            </div>
+            <div class="service-item">
+                <i class="fas fa-lightbulb"></i>
+                <h3>Concept & Design</h3>
+                <p>Innovative conceptualization and bespoke design ensuring your event's unique vision comes to life.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="portfolio" class="content-section">
+        <h2>A Glimpse of Our Grandeur</h2>
+        <div class="gold-line"></div>
+        <p style="max-width: 800px; margin: 0 auto 50px auto; font-size: 1.1rem; color: var(--white);">
+            Explore a selection of our signature events, each meticulously crafted to perfection.
+            Our portfolio showcases the breadth of our creativity and the depth of our dedication.
+        </p>
+        <div class="gallery-grid">
+            <div class="gallery-item">
+                <img src="gala event.jpg" alt="Gala Event">
+                <div class="gallery-overlay"><h4>Gala Night</h4></div>
+            </div>
+            <div class="gallery-item">
+                <img src="Corporate event.jpg" alt="Corporate Conference">
+                <div class="gallery-overlay"><h4>Corporate Summit</h4></div>
+            </div>
+            <div class="gallery-item">
+                <img src="Private Soiree.jpg" alt="Private Celebration">
+                <div class="gallery-overlay"><h4>Private Soiree</h4></div>
+            </div>
+            <div class="gallery-item">
+                <img src="Exclusive Gala.jpg" alt="Exclusive Gala">
+                <div class="gallery-overlay"><h4>Exclusive Gala</h4></div>
+            </div>
+            <div class="gallery-item">
+                <img src="Product Launch.png" alt="Product Launch">
+                <div class="gallery-overlay"><h4>Product Launch</h4></div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="content-section">
+        <h2>Inquire About Your Next Grand Event</h2>
+        <div class="gold-line"></div>
+        <p style="max-width: 700px; margin: 0 auto 50px auto; font-size: 1.1rem; color: var(--white);">
+            Ready to elevate your next experience? Contact our dedicated team to discuss your vision.
+            We are here to bring unparalleled grandeur to your special occasion.
+        </p>
+        <div class="contact-form">
+            <form action="#" method="POST"> <label for="name">Your Name</label>
+                <input type="text" id="name" name="name" required>
+
+                <label for="email">Your Email</label>
+                <input type="email" id="email" name="email" required>
+
+                <label for="event_type">Type of Event</label>
+                <input type="text" id="event_type" name="event_type">
+
+                <label for="message">Your Message</label>
+                <textarea id="message" name="message" required></textarea>
+
+                <button type="submit">SEND INQUIRY</button>
+            </form>
+        </div>
+    </section>
+
+    <footer>
+        <p>HIGH ATLAS EVENTS</p>
+        <div class="social-icons">
+            <a href="#"><i class="fab fa-facebook-f"></i></a>
+            <a href="#"><i class="fab fa-instagram"></i></a>
+            <a href="#"><i class="fab fa-linkedin-in"></i></a>
+            <a href="#"><i class="fab fa-twitter"></i></a>
+        </div>
+        <p>Email: <a href="mailto:info@highatlasevents.com">highatlasevents@gmail.com</a></p>
+        <p>Phone: <a href="tel:+1234567890">+212 (0) 65479-8627</a></p>
+        <p>&copy; 2025 HIGH ATLAS EVENTS. ALL RIGHTS RESERVED.</p>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const sections = document.querySelectorAll('.content-section');
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('fade-in');
+                        // Optional: stop observing once it's visible if you only want it to animate once
+                        // observer.unobserve(entry.target);
+                    } else {
+                        // Optional: remove fade-in class if you want it to re-animate when scrolling back up
+                        // entry.target.classList.remove('fade-in');
+                    }
+                });
+            }, {
+                threshold: 0.1 // Trigger when 10% of the section is visible
+            });
+
+            sections.forEach(section => {
+                observer.observe(section);
+            });
+        });
+    </script>
+
+</body>
+</html>
