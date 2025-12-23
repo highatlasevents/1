@@ -402,6 +402,12 @@
                 transform: translateY(0);
             }
         }
+        /* تنسيق خاص للهواتف */
+@media (max-width: 768px) {
+    .responsive-logo {
+        width: 250px !important; /* الحجم الذي سيظهر به على الهاتف */
+    }
+}
     </style>
 </head>
 <body>
@@ -415,7 +421,7 @@
 
     <section class="hero">
         <div class="hero-content">
-            <img src="High Atlas Events.png" alt="Logo" style="width: 800px; height: auto; margin-bottom: 0px;">
+            <img src="High Atlas Events.png" alt="Logo" class="responsive-logo" style="width: 800px; height: auto; margin-bottom: 0px;">
             <h1 class="logo-text"></h1>
             <div class="slogan"></div>
         </div>
